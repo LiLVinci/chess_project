@@ -1,2 +1,11 @@
-HERE WE WRITE THE PLAN FOR THE PROJECT
-JUST WRITE DOWN ANY IDEAS THAT COULD HELP TO PLAN THIS SHIT
+Make a chessboard with a grid of x and y coordinates
+
+For every piece make an object with attributes:
+- Color: What color the piece belongs to 
+- Movement: the possible x and y corrdinates that they can move (eg farmerr: +1y, king: +1x, -1x, +1y, -1y
+- bool killed: a bool that says if they got killed or not 
+
+On the chessboard place the specific figures on the right space. 
+Make turns where specific pieces can be moved by the right player. 
+Disable possible movements that end on a friendly figure. 
+If a player moves a piece on a enemy figure, this figure then is beaten and goes out of the game. 
