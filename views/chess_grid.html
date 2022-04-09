@@ -5,115 +5,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <!-- THIS RIGHT HERE ADDS JQUERY FOR BETTER CODE ARCHITECTURE -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+
   </head>
   <body>
 
     <style>
 
+        .chessboard-wrapper{
+            display: flex;
+            align-items: center;
+            /* justify-content: center; */
+            flex-direction: column;
+            
+        }
+
         .grid-container{
             display: grid; 
             grid-template-columns: auto auto auto auto auto auto auto auto;
+            width: 1000px;
+            height: 1000px;
         }
-        .grid-container > div {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 30px;
-            }
+
 
         .field {
-            width: 100px;
-            height: 100px;
-            color: greenyellow;
+            /* width: 12.5%;
+            height: 12.5%; */
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
         }
         .fieldWhite {
-            background-color: white;
+            background-color:beige;
         }
         .fieldBlack {
-            background-color: black;
+            background-color:darkgreen;
         }
     </style>
 
 
-    <h1>THE MAIN CHESS GRID</h1>
-    <div class="grid-container">
-        <!-- THIS COULD HAVE PROBABLY BE AUTOMATED WITH A SIMPLE SCRIPT BUT RN I DONT WANT TO DO THAT -->
-        
-        <div class="field fieldWhite fieldA8">A8</div>
-        <div class="field fieldBlack fieldB8">B8</div>
-        <div class="field fieldWhite fieldC8">C8</div>
-        <div class="field fieldBlack fieldD8">D8</div>
-        <div class="field fieldWhite fieldE8">E8</div>
-        <div class="field fieldBlack fieldF8">F8</div>  
-        <div class="field fieldWhite fieldG8">G8</div>
-        <div class="field fieldBlack fieldG8">H8</div>
+    <div class="chessboard-wrapper">
+        <h1>THE MAIN CHESS GRID</h1>
 
-        <div class="field fieldBlack fieldA7">A7</div>
-        <div class="field fieldWhite fieldB7">B7</div>
-        <div class="field fieldBlack fieldC7">C7</div>
-        <div class="field fieldWhite fieldD7">D7</div>
-        <div class="field fieldBlack fieldE7">E7</div>
-        <div class="field fieldWhite fieldF7">F7</div>  
-        <div class="field fieldBlack fieldG7">G7</div>
-        <div class="field fieldWhite fieldH7">H7</div>
-
-        <div class="field fieldWhite fieldA6">A6</div>
-        <div class="field fieldBlack fieldB6">B6</div>
-        <div class="field fieldWhite fieldC6">C6</div>
-        <div class="field fieldBlack fieldD6">D6</div>
-        <div class="field fieldWhite fieldE6">E6</div>
-        <div class="field fieldBlack fieldF6">F6</div>  
-        <div class="field fieldWhite fieldG6">G6</div>
-        <div class="field fieldBlack fieldH6">H6</div>
-
-        <div class="field fieldBlack fieldA5">A5</div>
-        <div class="field fieldWhite fieldB5">B5</div>
-        <div class="field fieldBlack fieldC5">C5</div>
-        <div class="field fieldWhite fieldD5">D5</div>
-        <div class="field fieldBlack fieldE5">E5</div>
-        <div class="field fieldWhite fieldF5">F5</div>  
-        <div class="field fieldBlack fieldG5">G5</div>
-        <div class="field fieldWhite fieldH5">H5</div>
-
-        <div class="field fieldWhite fieldA4">A4</div>
-        <div class="field fieldBlack fieldB4">B4</div>
-        <div class="field fieldWhite fieldC4">C4</div>
-        <div class="field fieldBlack fieldD4">D4</div>
-        <div class="field fieldWhite fieldE4">E4</div>
-        <div class="field fieldBlack fieldF4">F4</div>  
-        <div class="field fieldWhite fieldG4">G4</div>
-        <div class="field fieldBlack fieldH4">H4</div>
-
-        <div class="field fieldBlack fieldA3">A3</div>
-        <div class="field fieldWhite fieldB3">B3</div>
-        <div class="field fieldBlack fieldC3">C3</div>
-        <div class="field fieldWhite fieldD3">D3</div>
-        <div class="field fieldBlack fieldE3">E3</div>
-        <div class="field fieldWhite fieldF3">F3</div>  
-        <div class="field fieldBlack fieldG3">G3</div>
-        <div class="field fieldWhite fieldH3">H3</div>
-
-        <div class="field fieldWhite fieldA2">A2</div>
-        <div class="field fieldBlack fieldB2">B2</div>
-        <div class="field fieldWhite fieldC2">C2</div>
-        <div class="field fieldBlack fieldD2">D2</div>
-        <div class="field fieldWhite fieldE2">E2</div>
-        <div class="field fieldBlack fieldF2">F2</div>  
-        <div class="field fieldWhite fieldG2">G2</div>
-        <div class="field fieldBlack fieldH2">H2</div>
-
-        <div class="field fieldBlack fieldA1">A1</div>
-        <div class="field fieldWhite fieldB1">B1</div>
-        <div class="field fieldBlack fieldC1">C1</div>
-        <div class="field fieldWhite fieldD1">D1</div>
-        <div class="field fieldBlack fieldE1">E1</div>
-        <div class="field fieldWhite fieldF1">F1</div>  
-        <div class="field fieldBlack fieldG1">G1</div>
-        <div class="field fieldWhite fieldH1">H1</div>
-
-      </div>
+        <div class="chessboard grid-container">
+            
+        </div>
+    </div>  
       <script>
+        $(document).ready(function(){
+            list = [];
+            var letters = ["A", "B", "C", "D", "E", "F","G","H"];
+            let white = true;
+
+            for(var n = 8; n> 0; n--) {
+                for(let letter = 1; letter< 9; letter++) {
+                    if (letter != 1) {
+                        white = !white;
+                    }
+                    let field = `${letters[letter-1]}${n}`; 
+                    if (white == true) {
+                        var newField = `<div class="field fieldWhite field${field}"><p>${field}</p></div>`;
+                    } 
+                    else {
+                        var newField = `<div class="field fieldBlack field${field}"><p>${field}</p></div>`; 
+                    }
+                    console.log(newField);
+                    $(".chessboard").append(newField);
+                }
+            }
+            }); 
 
       </script>
+
+
+
+    <!-- THIS COULD HAVE PROBABLY BE AUTOMATED WITH A SIMPLE SCRIPT BUT RN I DONT WANT TO DO THAT -->
+    
+    <!-- <div class="field fieldWhite fieldA8">A8</div>
+    <div class="field fieldBlack fieldB8">B8</div>
+    <div class="field fieldWhite fieldC8">C8</div>
+    <div class="field fieldBlack fieldD8">D8</div>
+    <div class="field fieldWhite fieldE8">E8</div>
+    <div class="field fieldBlack fieldF8">F8</div>  
+    <div class="field fieldWhite fieldG8">G8</div>
+    <div class="field fieldBlack fieldG8">H8</div>
+
+    <div class="field fieldBlack fieldA7">A7</div>
+    <div class="field fieldWhite fieldB7">B7</div>
+    <div class="field fieldBlack fieldC7">C7</div>
+    <div class="field fieldWhite fieldD7">D7</div>
+    <div class="field fieldBlack fieldE7">E7</div>
+    <div class="field fieldWhite fieldF7">F7</div>  
+    <div class="field fieldBlack fieldG7">G7</div>
+    <div class="field fieldWhite fieldH7">H7</div>
+
+    <div class="field fieldWhite fieldA6">A6</div>
+    <div class="field fieldBlack fieldB6">B6</div>
+    <div class="field fieldWhite fieldC6">C6</div>
+    <div class="field fieldBlack fieldD6">D6</div>
+    <div class="field fieldWhite fieldE6">E6</div>
+    <div class="field fieldBlack fieldF6">F6</div>  
+    <div class="field fieldWhite fieldG6">G6</div>
+    <div class="field fieldBlack fieldH6">H6</div>
+
+    <div class="field fieldBlack fieldA5">A5</div>
+    <div class="field fieldWhite fieldB5">B5</div>
+    <div class="field fieldBlack fieldC5">C5</div>
+    <div class="field fieldWhite fieldD5">D5</div>
+    <div class="field fieldBlack fieldE5">E5</div>
+    <div class="field fieldWhite fieldF5">F5</div>  
+    <div class="field fieldBlack fieldG5">G5</div>
+    <div class="field fieldWhite fieldH5">H5</div>
+
+    <div class="field fieldWhite fieldA4">A4</div>
+    <div class="field fieldBlack fieldB4">B4</div>
+    <div class="field fieldWhite fieldC4">C4</div>
+    <div class="field fieldBlack fieldD4">D4</div>
+    <div class="field fieldWhite fieldE4">E4</div>
+    <div class="field fieldBlack fieldF4">F4</div>  
+    <div class="field fieldWhite fieldG4">G4</div>
+    <div class="field fieldBlack fieldH4">H4</div>
+
+    <div class="field fieldBlack fieldA3">A3</div>
+    <div class="field fieldWhite fieldB3">B3</div>
+    <div class="field fieldBlack fieldC3">C3</div>
+    <div class="field fieldWhite fieldD3">D3</div>
+    <div class="field fieldBlack fieldE3">E3</div>
+    <div class="field fieldWhite fieldF3">F3</div>  
+    <div class="field fieldBlack fieldG3">G3</div>
+    <div class="field fieldWhite fieldH3">H3</div>
+
+    <div class="field fieldWhite fieldA2">A2</div>
+    <div class="field fieldBlack fieldB2">B2</div>
+    <div class="field fieldWhite fieldC2">C2</div>
+    <div class="field fieldBlack fieldD2">D2</div>
+    <div class="field fieldWhite fieldE2">E2</div>
+    <div class="field fieldBlack fieldF2">F2</div>  
+    <div class="field fieldWhite fieldG2">G2</div>
+    <div class="field fieldBlack fieldH2">H2</div>
+
+    <div class="field fieldBlack fieldA1">A1</div>
+    <div class="field fieldWhite fieldB1">B1</div>
+    <div class="field fieldBlack fieldC1">C1</div>
+    <div class="field fieldWhite fieldD1">D1</div>
+    <div class="field fieldBlack fieldE1">E1</div>
+    <div class="field fieldWhite fieldF1">F1</div>  
+    <div class="field fieldBlack fieldG1">G1</div>
+    <div class="field fieldWhite fieldH1">H1</div> -->
+
 
   </body>
 </html>
