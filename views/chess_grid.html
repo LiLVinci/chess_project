@@ -22,8 +22,9 @@
         }
 
         .grid-container{
-            display: grid; 
-            grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% ;
+            display: flex; 
+            flex-flow: wrap-reverse;
+            /* grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% ; */
             width: 1000px;
             height: 1000px;
         }
@@ -33,6 +34,8 @@
 
             color: black;
             display: grid;
+            /* display: flex; */
+            width: calc(100%/8);
             align-items: center;
             justify-content: center;
             font-size: 30px;
@@ -60,6 +63,13 @@
             grid-column: 1;
             grid-row: 1;
             width: 80px;
+            
+        }
+
+
+
+        .activated {
+            background-color: aqua;
         }
     </style>
 
@@ -71,37 +81,102 @@
             
         </div>
     </div>  
-      <script>
-        $(document).ready(function(){
-            list = [];
-            var letters = ["A", "B", "C", "D", "E", "F","G","H"];
-            let white = true;
-
-            for(var n = 8; n> 0; n--) {
-                for(let letter = 1; letter< 9; letter++) {
-                    if (letter != 1) {
+        <script>
+            $(document).ready(function(){
+                list = [];
+                var letters = ["A", "B", "C", "D", "E", "F","G","H"];
+                let white = true;
+                for (var n = 0; n< 64; n++) {
+                    if (n %8 != 0) {
                         white = !white;
-                    }
-                    let field = `${letters[letter-1]}${n}`; 
-                    if (white == true) {
-                        var newField = `<div class="field fieldWhite field${field}"><p class="label">${field}</p></div>`;
-                    } 
-                    else {
-                        var newField = `<div class="field fieldBlack field${field}"><p class="label">${field}</p></div>`; 
-                    }
-                    // console.log(newField);
-                    $(".chessboard").append(newField);
-                    
-                }
-            }
 
-            }); 
-      </script>
+                    }
+                    let fieldNumber = n;
+                    if (white == true) {
+                            var newField = `<div class="field fieldWhite" id="${fieldNumber}"><p class="label">${fieldNumber}</p></div>`;
+                        } 
+                        else {
+                            var newField = `<div class="field fieldBlack" id="${fieldNumber}"><p class="label">${fieldNumber}</p></div>`; 
+                        }
+                        // console.log(newField);
+                        $(".chessboard").append(newField);
+                }
+            });   
+
+                // for(var n = 8; n> 0; n--) {
+                //     for(let letter = 1; letter< 9; letter++) {
+                //         if (letter != 1) {
+                //             white = !white;
+                //         }
+                //         // console.log((letter-1)*n)
+                //         let fieldNumber = `${(letter-1)*n}`; 
+                //         let field = `${letters[letter-1]}${n}`; 
+                //         if (white == true) {
+                //             var newField = `<div class="field fieldWhite field${field}" id="${fieldNumber}"><p class="label">${field}</p></div>`;
+                //         } 
+                //         else {
+                //             var newField = `<div class="field fieldBlack field${field}" id="${fieldNumber}"><p class="label">${field}</p></div>`; 
+                //         }
+                //         // console.log(newField);
+                //         $(".chessboard").append(newField);
+                        
+                //     }
+                // }
+
+
+
+                
+
+                function fieldTracker() {
+                    // Go to the pieces_generation function and whenever a piece is put on a field add into a global variable "tracker"
+                    // "tracker" is either a global list or a dictionary that stores which piece is at which digit of range 0-64
+                    // Change the possible moves from digit and number to a number which works in this 0-64 value
+                    // Whenever a piece is moved it is changed up in this list via the fieldtracker function. 
+                }
+
+                var pieces;
+
+                function possibleMoves(piece) {
+                    var activeFields = document.getElementsByClassName("activated")
+                    while(activeFields.length > 0){
+
+                        activeFields[0].classList.remove("activated");
+                    }
+                    console.log(piece);
+                    var piece = document.getElementById(`${piece}`);
+                    var field = piece.closest(".field");
+                    console.log(field);
+                    field.classList.add("activated");
+                    console.log(pieces["Knight"])
+                    var result = pieces.find(obj => {
+                        return obj.fieldNumber === 1
+                    })
+                }
+        </script>
 
         <script type="module">
-            import { pieces_generation } from '../scripts/pieces_generation.js';
 
+
+
+            import { pieces_generation } from '../scripts/pieces_generation.js';
+            
             window.onload = pieces_generation
+
+            
+
+
+
+
+        </script>
+
+        <script>
+
+
+                
+
+            
+
+            
 
         </script>
 
